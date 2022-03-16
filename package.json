@@ -1,0 +1,21 @@
+{
+  "name": "com.ryuu.hierarchy-icon",
+  "license": "MIT",
+  "version": "0.1.0",
+  "displayName": "Hierarchy Icon",
+  "description": "show game object component icon in the hierarchy",
+  "unity": "2021.2",
+  "documentationUrl": "https://github.com/Ryuu-64/Hierarchy-Icon",
+  "changelogUrl": "https://github.com/Ryuu-64/Hierarchy-Icon",
+  "licensesUrl": "https://github.com/Ryuu-64/Hierarchy-Icon",
+  "keywords": [
+    "tool",
+    "editor",
+    "hierarchy"
+  ],
+  "author": {
+    "name": "ryuu",
+    "email": "2357622935@qq.com",
+    "url": "https://blog.ryuu64.top/"
+  }
+}
