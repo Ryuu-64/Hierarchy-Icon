@@ -3,7 +3,7 @@
   "license": "MIT",
   "version": "0.1.0",
   "displayName": "Hierarchy Icon",
-  "description": "show game object component icon in the hierarchy",
+  "description": "About:\n\nThis package can show the game object component icons in the hierarchy and customize the icons shown parameter.\r\n\r\nCustomize\r:\n\r\nCheck the ScriptableObject HierarchyIconInfo at path:\r\nAssets\\Plugins\\Ryuu\\Hierarchy Icon\\HierarchyIconInfo.asset\r\n\r\nContact\r:\n\r\nIf you have any comments or suggestions:\r\nEmail: 2357622935@qq.com\r\n\r\nCopyright\r:\n\r\nThis package is licensed under The MIT License (MIT)\r\n\nCopyright (c) 2022 Ryuu-64\r\nhttps://github.com/Ryuu-64/Hierarchy-Icon\r\n\nSee full copyrights in LICENSE inside package",
   "unity": "2021.2",
   "documentationUrl": "https://github.com/Ryuu-64/Hierarchy-Icon",
   "changelogUrl": "https://github.com/Ryuu-64/Hierarchy-Icon",
