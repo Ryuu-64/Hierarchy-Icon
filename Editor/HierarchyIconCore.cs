@@ -11,7 +11,7 @@ namespace Ryuu.HierarchyIcon.Editor
     {
         public static HierarchyIconInfo Info;
         private static GameObject offsetGameObject;
-        private static int offset;
+        private static int offsetIndex;
 
         [InitializeOnLoadMethod]
         public static void HierarchyIconInitialize()
@@ -25,7 +25,6 @@ namespace Ryuu.HierarchyIcon.Editor
                 CreateInfo();
             }
 
-            // set info
             SetInfo();
         }
 
@@ -42,7 +41,7 @@ namespace Ryuu.HierarchyIcon.Editor
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log(
-                $"{nameof(HierarchyIconInfo)} created. Check {HierarchyIconEditorWindow.MENU_ITEM_PATH}"
+                $"{nameof(HierarchyIconInfo)} created.\n Check {HierarchyIconEditorWindow.MENU_ITEM_PATH}"
             );
         }
 
@@ -73,7 +72,7 @@ namespace Ryuu.HierarchyIcon.Editor
             }
 
             Info.Refresh();
-            offset = 0;
+            offsetIndex = 0;
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
@@ -130,16 +129,16 @@ namespace Ryuu.HierarchyIcon.Editor
             }
 
 
-            int offsetIndex = gameObject == offsetGameObject ? HierarchyIconCore.offset : 0;
+            int tmpOffsetIndex = gameObject == offsetGameObject ? offsetIndex : 0;
             rect.width += rect.x;
             rect.x += Info.iconOffset.x;
             rect.y += Info.iconOffset.y;
 
             // icon
             int i = 0;
-            for (; i + offsetIndex < components.Count && i < Info.iconCount; i++)
+            for (; i + tmpOffsetIndex < components.Count && i < Info.iconCount; i++)
             {
-                var texture = AssetPreview.GetMiniThumbnail(components[i + offsetIndex]);
+                var texture = AssetPreview.GetMiniThumbnail(components[i + tmpOffsetIndex]);
 
                 if (texture)
                 {
@@ -170,15 +169,15 @@ namespace Ryuu.HierarchyIcon.Editor
                 if (offsetGameObject != gameObject)
                 {
                     offsetGameObject = gameObject;
-                    HierarchyIconCore.offset = 0;
+                    offsetIndex = 0;
                 }
 
-                HierarchyIconCore.offset += Info.iconCount;
+                offsetIndex += Info.iconCount;
 
                 // reset offset
-                if (HierarchyIconCore.offset >= components.Count)
+                if (offsetIndex >= components.Count)
                 {
-                    HierarchyIconCore.offset = 0;
+                    offsetIndex = 0;
                 }
             }
 

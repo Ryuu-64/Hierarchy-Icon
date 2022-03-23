@@ -16,21 +16,21 @@ namespace Ryuu.HierarchyIcon.Editor
 
         private void OnGUI()
         {
-            BtnCreateInfoInfo();
-            EditorGUILayout.Space();
-            ObjFldInfo();
-            BtnEnableDisable();
-            EditorGUILayout.Space();
-            ObjFldComponent();
-            BtnComponent();
-
-            static void BtnCreateInfoInfo()
+            if (!Info)
             {
-                if (Info)
-                {
-                    return;
-                }
+                BtnCreateInfo();
+            }
+            else if (Info)
+            {
+                ObjFldInfo();
+                BtnEnableDisable();
+                EditorGUILayout.Space();
+                ObjFldComponent();
+                BtnComponent();
+            }
 
+            static void BtnCreateInfo()
+            {
                 if (GUILayout.Button(nameof(CreateInfo)))
                 {
                     CreateInfo();
