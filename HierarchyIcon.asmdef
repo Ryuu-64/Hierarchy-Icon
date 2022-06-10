@@ -1,5 +1,5 @@
 {
-    "name": "HierarchyIconAssembly",
+    "name": "HierarchyIcon",
     "rootNamespace": "Ryuu.HierarchyIcon",
     "references": [],
     "includePlatforms": [

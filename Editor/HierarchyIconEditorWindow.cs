@@ -1,6 +1,7 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
-using static Ryuu.HierarchyIcon.Editor.HierarchyIconCore;
+using static Ryuu.HierarchyIcon.Editor.HierarchyIconController;
 
 namespace Ryuu.HierarchyIcon.Editor
 {
@@ -16,50 +17,54 @@ namespace Ryuu.HierarchyIcon.Editor
 
         private void OnGUI()
         {
-            if (!Info)
+            if (!Model)
             {
-                BtnCreateInfo();
-            }
-            else if (Info)
-            {
-                ObjFldInfo();
-                BtnEnableDisable();
+                ButtonCreateModel();
                 EditorGUILayout.Space();
-                ObjFldComponent();
-                BtnComponent();
+                NoModelHelpBox();
+            }
+            else
+            {
+                ObjectFieldModel();
+                ButtonEnableDisable();
+                EditorGUILayout.Space();
+                ObjectFieldComponent();
+                ButtonComponent();
             }
 
-            static void BtnCreateInfo()
+            static void ButtonCreateModel()
             {
-                if (GUILayout.Button(nameof(CreateInfo)))
-                {
-                    CreateInfo();
-                    SetInfo();
-                }
+                if (!GUILayout.Button(nameof(CreateModel))) return;
 
+                CreateModel();
+                SetModel();
+            }
+
+            static void NoModelHelpBox()
+            {
                 EditorGUILayout.HelpBox(
-                    $"There is no {nameof(HierarchyIconInfo)}.\n" +
-                    $" You can create an info file by clicking {nameof(CreateInfo)} button.",
+                    $"There is no {nameof(HierarchyIconModel)}.\n" +
+                    $" You can create an info file by clicking {nameof(ButtonCreateModel)}.",
                     MessageType.Warning
                 );
             }
 
-            static void ObjFldInfo()
+            static void ObjectFieldModel()
             {
-                Info = (HierarchyIconInfo) EditorGUILayout.ObjectField(
-                    $"Target {nameof(HierarchyIconInfo)}",
-                    Info,
-                    typeof(HierarchyIconInfo),
+                Model = (HierarchyIconModel) EditorGUILayout.ObjectField(
+                    $"Target {nameof(HierarchyIconModel)}",
+                    Model,
+                    typeof(HierarchyIconModel),
                     false
                 );
             }
 
-            static void BtnEnableDisable()
+            static void ButtonEnableDisable()
             {
                 if (GUILayout.Button("Enable / Disable")) EnableOrDisable();
             }
 
-            static void ObjFldComponent()
+            static void ObjectFieldComponent()
             {
                 component = (Component) EditorGUILayout.ObjectField(
                     $"Target {nameof(Component)}",
@@ -69,19 +74,19 @@ namespace Ryuu.HierarchyIcon.Editor
                 );
             }
 
-            static void BtnComponent()
+            static void ButtonComponent()
             {
                 if (component == null)
                 {
                     return;
                 }
 
-                var type = component.GetType();
-                while (type != null && !type.Assembly.Equals(typeof(Component).Assembly))
+                Type type = component.GetType();
+                while (type is {AssemblyQualifiedName: { }} && !type.AssemblyQualifiedName.Equals(typeof(Component).AssemblyQualifiedName))
                 {
                     if (GUILayout.Button($"Show / Hide : {type.FullName}"))
                     {
-                        ShowHideIcon(type.AssemblyQualifiedName);
+                        ShowHideIconByComponentType(type);
                     }
 
                     type = type.BaseType;
